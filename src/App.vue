@@ -15,8 +15,8 @@ import { RouterLink, RouterView } from "vue-router";
           <a href="#" class="flex items-center">
             <span
               class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-              >Flowbite</span
-            >
+              >Flowbite
+            </span>
           </a>
           <button
             data-collapse-toggle="mobile-menu"
@@ -107,6 +107,14 @@ import { RouterLink, RouterView } from "vue-router";
                   ></RouterLink
                 >
               </li>
+              <li v-if="profiledata.Admin">
+                <RouterLink to="/admin"
+                  ><a
+                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >Admin</a
+                  ></RouterLink
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -114,7 +122,7 @@ import { RouterLink, RouterView } from "vue-router";
     </div>
   </header>
 
-  <router-view />
+  <router-view :Dataprofile="profiledata" />
   <div>
     <TransitionRoot as="template" :show="logoutvar">
       <Dialog
@@ -206,7 +214,8 @@ import { RouterLink, RouterView } from "vue-router";
 </template>
 <script>
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../src/plugin/index";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db, auth } from "../src/plugin/index";
 import {
   Dialog,
   DialogOverlay,
@@ -229,6 +238,7 @@ export default {
     return {
       login: true,
       logoutvar: false,
+      profiledata: false,
     };
   },
   methods: {
@@ -241,6 +251,7 @@ export default {
           const uid = user.uid;
           console.log(uid);
           this.login = false;
+          this.readData();
           // ...แสดงผล user, email, id ในจอ
         } else {
           // User is signed out
@@ -263,6 +274,13 @@ export default {
           // An error happened.
           console.log(error);
         });
+    },
+    async readData() {
+      const user = auth.currentUser;
+      await onSnapshot(doc(db, "cities", user.uid), (doc) => {
+        // console.log(doc.data());
+        this.profiledata = doc.data();
+      });
     },
   },
 };

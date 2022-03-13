@@ -154,7 +154,7 @@
 </template>
 
 <script>
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../plugin/index";
 export default {
@@ -176,6 +176,7 @@ export default {
           const user = userCredential.user;
           this.profile();
           console.log(user);
+
           // ...
         })
         .catch((error) => {
@@ -200,6 +201,20 @@ export default {
         Email: user.email,
         totalMoney: 0,
       });
+      this.logout();
+    },
+    logout() {
+      //   const auth = getAuth();
+      signOut(auth)
+        .then(() => {
+          // Sign-outsuccessful.
+          //   this.$router.push("/");
+          this.$router.replace("/login");
+        })
+        .catch((error) => {
+          // An error happened.
+          console.log(error);
+        });
     },
   },
 };

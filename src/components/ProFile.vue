@@ -141,10 +141,19 @@
                 <div class="flex justify-center">
                   <button
                     type="submit"
+                    v-show="btnEdit"
                     @click="profile"
                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   >
-                    Submit
+                    Submit Edit
+                  </button>
+                  <button
+                    type="reset"
+                    v-show="btnEdit"
+                    @click="(profiledata = profiledata1), (btnEdit = false)"
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  >
+                    Reset
                   </button>
                 </div>
               </div>
@@ -295,6 +304,8 @@ export default {
       popuptext: [],
       phonenum: false,
       input: "",
+      btnEdit: false,
+      profiledata1: "",
     };
   },
   methods: {
@@ -311,12 +322,14 @@ export default {
         Email: user.email,
         totalMoney: this.profiledata.totalMoney,
       });
+      this.btnEdit = false;
     },
     async readData() {
       const user = auth.currentUser;
       await onSnapshot(doc(db, "cities", user.uid), (doc) => {
-        console.log(doc.data());
+        // console.log(doc.data());
         this.profiledata = doc.data();
+        this.profiledata1 = doc.data();
       });
     },
     formatnumber(number) {
@@ -356,6 +369,7 @@ export default {
         this.input = "";
       }
       this.logoutvar = false;
+      this.btnEdit = true;
     },
   },
 };
