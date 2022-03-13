@@ -355,7 +355,7 @@ export default {
       }
     },
     editdata(i) {
-      console.log(i, this.input);
+      // console.log(i, this.input);
       if (this.profiledata.fname == i) {
         this.profiledata.fname = this.input;
         this.input = "";

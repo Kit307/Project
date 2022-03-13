@@ -165,6 +165,7 @@ export default {
       fname: "",
       lname: "",
       phone: "",
+      xx: "",
     };
   },
   methods: {
@@ -175,7 +176,8 @@ export default {
           // Signed in
           const user = userCredential.user;
           this.profile();
-          console.log(user);
+          // console.log(user);
+          this.xx = user;
 
           // ...
         })
