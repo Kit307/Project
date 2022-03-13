@@ -1,6 +1,6 @@
 <template>
   <div class="py-6"></div>
-  <div>
+  <div class="bg-gray-50 dark:bg-gray-700">
     <h1>This is an about admin</h1>
     <!-- <div v-show="show">
       <div
@@ -57,7 +57,9 @@
           class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3"
         >
           <!-- Article -->
-          <article class="overflow-hidden rounded-lg shadow-lg">
+          <article
+            class="overflow-hidden rounded-lg shadow-lg bg-white dark:text-white dark:bg-gray-800"
+          >
             <a href="#">
               <img
                 alt="Placeholder"
@@ -70,7 +72,10 @@
               class="flex items-center justify-between leading-tight p-2 md:p-4"
             >
               <h1 class="text-lg">
-                <a class="no-underline hover:underline text-black" href="#">
+                <a
+                  class="no-underline hover:underline dark:text-white text-black"
+                  href="#"
+                >
                   {{ item.data.data.title }}
                 </a>
               </h1>
@@ -89,7 +94,7 @@
                   class="block rounded-full"
                   src="https://picsum.photos/32/32/?random"
                 />
-                <p class="ml-2 text-sm">Author Name</p>
+                <p class="ml-2 text-sm dark:text-white">Author Name</p>
               </a>
               <a
                 class="no-underline text-grey-darker hover:text-red-dark"
