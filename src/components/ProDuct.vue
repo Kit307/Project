@@ -1,67 +1,56 @@
 <template>
   <div class="py-6"></div>
-  <div class="bg-gray-50 dark:bg-gray-700">
-    <h1>This is an about admin</h1>
-    <button @click="aaaa()">sdasasdasdasdas</button>
-    <!-- {{ readimg(profiledata[0].data.data.filename) }}
-    {{ xxxx }} -->
-    <!-- <div v-show="show">
+  <div class="bg-gray-50 dark:bg-gray-700 dark:text-white text-black">
+    <h1 class="text-center pt-16 text-5xl">Product</h1>
+    <div
+      class="md:px-16 px-5 grid grid-cols-1 py-14 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+    >
       <div
-        class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+        v-for="(item, index) in profiledata"
+        :key="index"
+        class="rounded overflow-hidden shadow-lg flex flex-col my-2 bg-gray-50 dark:bg-gray-800 dark:text-white text-black"
       >
-        <a href="#">
-          <img
-            class="rounded-t-lg"
-            :src="profiledata[0].data.linkfile"
-            alt=""
-          />
-        </a>
-        <div class="p-5">
-          <a href="#">
-            <h5
-              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-            >
-              Noteworthy technology acquisitions 2021
-            </h5>
-          </a>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Here are the biggest enterprise technology acquisitions of 2021 so
-            far, in reverse chronological order.
-          </p>
-          <a
-            href="#"
-            class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <img
+          :src="item.data.linkfile"
+          class="block h-auto w-full object-cover max-h-64 min-w-fit"
+        />
+        <div class="pb-4 pt-2">
+          <header
+            class="flex items-center justify-between leading-tight p-2 md:p-4"
           >
-            Read more
-            <svg
-              class="ml-2 -mr-1 w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <h1 class="text-lg">
+              <a
+                class="no-underline hover:underline dark:text-white text-black"
+                href="#"
+              >
+                {{ item.data.data.title }}
+              </a>
+            </h1>
+            <p class="text-grey-darker text-sm">{{ item.data.data.price }} $</p>
+          </header>
+          <p class="p-2 md:p-4 text-base dark:text-white text-black">
+            {{ item.data.data.description }}
+          </p>
+        </div>
+        <div class="px-6 pt-4 pb-2 text-center mt-auto">
+          <a class="no-underline hover:underline text-black" href="#">
+            <p class="ml-2 text-sm dark:text-white">Author Name</p>
           </a>
         </div>
       </div>
-    </div> -->
-
-    <div class="container my-12 mx-auto px-4 md:px-12">
-      <div class="flex flex-wrap -mx-1 lg:-mx-4">
-        <!-- Column -->
-
-        <div
+    </div>
+    <!-- <div class="container pb-3 mx-auto px-4 md:px-12">
+      <div><h1 class="text-center text-3xl dark:text-white">Product</h1></div>
+      <div class="flex flex-wrap -mx-1 lg:-mx-4"> -->
+    <!-- Column -->
+    <!-- <div
           v-for="(item, index) in profiledata"
           :key="index"
-          class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3"
-        >
-          <!-- Article -->
-          <article
-            class="overflow-hidden rounded-lg shadow-lg bg-white dark:text-white dark:bg-gray-800"
+          class="flex flex-col my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3"
+        > -->
+    <!-- Article -->
+    <!-- <article
+            class="overflow-hidden flex-1 rounded-lg shadow-lg bg-white dark:text-white dark:bg-gray-800"
           >
             <a href="#">
               <img
@@ -71,47 +60,39 @@
               />
             </a>
 
-            <header
-              class="flex items-center justify-between leading-tight p-2 md:p-4"
-            >
-              <h1 class="text-lg">
-                <a
-                  class="no-underline hover:underline dark:text-white text-black"
-                  href="#"
-                >
-                  {{ item.data.data.title }}
-                </a>
-              </h1>
-              <p class="text-grey-darker text-sm">11/1/19</p>
-            </header>
-
-            <footer
-              class="flex items-center justify-between leading-none p-2 md:p-4"
-            >
-              <a
-                class="flex items-center no-underline hover:underline text-black"
-                href="#"
+            <div class="">
+              <header
+                class="flex items-center justify-between leading-tight p-2 md:p-4"
               >
-                <img
-                  alt="Placeholder"
-                  class="block rounded-full"
-                  src="https://picsum.photos/32/32/?random"
-                />
+                <h1 class="text-lg">
+                  <a
+                    class="no-underline hover:underline dark:text-white text-black"
+                    href="#"
+                  >
+                    {{ item.data.data.title }}
+                  </a>
+                </h1>
+                <p class="text-grey-darker text-sm">
+                  {{ item.data.data.price }} $
+                </p>
+              </header>
+              <div class="p-2 md:p-4">
+                <h1>{{ item.data.data.description }}</h1>
+              </div>
+            </div>
+
+            <footer class="p-2 md:p-4">
+              <a class="no-underline hover:underline text-black" href="#">
                 <p class="ml-2 text-sm dark:text-white">Author Name</p>
               </a>
-              <a
-                class="no-underline text-grey-darker hover:text-red-dark"
-                href="#"
-              >
-                <span class="hidden">Like</span>
-                <i class="fa fa-heart"></i>
-              </a>
             </footer>
-          </article>
-          <!-- END Article -->
-        </div>
+          </article> -->
+
+    <!-- END Article -->
+    <!-- </div>
       </div>
-    </div>
+    </div> -->
+    <div></div>
   </div>
 </template>
 
@@ -161,6 +142,7 @@ export default {
     aaaa() {
       for (let index = 0; index < this.profiledata.length; index++) {
         console.log("loop" + index);
+        // this.profiledata[index].data.data.push({ stock: 10 });
         this.readimg(
           this.profiledata[index].data.data.filename,
           index,
@@ -204,6 +186,7 @@ export default {
       await setDoc(doc(citiesRef, i + ""), {
         data: data,
         linkfile: linkfile,
+        stock: 10,
       });
     },
   },
