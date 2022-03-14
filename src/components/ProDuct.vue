@@ -2,6 +2,9 @@
   <div class="py-6"></div>
   <div class="bg-gray-50 dark:bg-gray-700">
     <h1>This is an about admin</h1>
+    <button @click="aaaa()">sdasasdasdasdas</button>
+    <!-- {{ readimg(profiledata[0].data.data.filename) }}
+    {{ xxxx }} -->
     <!-- <div v-show="show">
       <div
         class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
@@ -113,12 +116,11 @@
 </template>
 
 <script>
-// import { ref, getDownloadURL } from "firebase/storage";
-// import { storage } from "../plugin/index.js";
-// import { collection, doc, setDoc } from "firebase/firestore";
-// import { db } from "../plugin/index";
-import { doc, onSnapshot, getDocs, collection } from "firebase/firestore";
-import { db } from "../plugin/index.js";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../plugin/index.js";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from "../plugin/index";
+import { onSnapshot, getDocs } from "firebase/firestore";
 export default {
   async beforeCreate() {
     // this.readimg();
@@ -135,15 +137,14 @@ export default {
     return {
       profiledata: [],
       profiledata2: [],
-      xxxx: [],
+      xxxx: "",
       show: false,
     };
   },
   methods: {
     async readData(i) {
       await onSnapshot(doc(db, "product", i + ""), (doc) => {
-        // console.log(doc.data());
-        this.xxxx.push(doc.data());
+        console.log(doc.data());
       });
     },
     async readData2() {
@@ -158,48 +159,53 @@ export default {
       console.log("Done");
     },
     aaaa() {
-      for (let i = 0; i < 50; i++) {
-        this.readData(i);
+      for (let index = 0; index < this.profiledata.length; index++) {
+        console.log("loop" + index);
+        this.readimg(
+          this.profiledata[index].data.data.filename,
+          index,
+          this.profiledata[index].data.data
+        );
       }
     },
-    // readimg() {
-    //   for (let i = 0; i < 51; i++) {
-    //     const starsRef = ref(storage, "/image product/" + i + ".jpg");
-    //     // Get the download URL
-    //     getDownloadURL(starsRef)
-    //       .then((url) => {
-    //         this.xxxx.push(url);
-    //         // Insert url into an <img> tag to "download"
-    //       })
-    //       .catch((error) => {
-    //         // A full list of error codes is available at
-    //         // https://firebase.google.com/docs/storage/web/handle-errors
-    //         switch (error.code) {
-    //           case "storage/object-not-found":
-    //             // File doesn't exist
-    //             break;
-    //           case "storage/unauthorized":
-    //             // User doesn't have permission to access the object
-    //             break;
-    //           case "storage/canceled":
-    //             // User canceled the upload
-    //             break;
-    //           // ...
-    //           case "storage/unknown":
-    //             // Unknown error occurred, inspect the server response
-    //             break;
-    //         }
-    //       });
-    //   }
-    // },
-    // async profile(i) {
-    //   this.readUid;
-    //   const citiesRef = collection(db, "product");
-    //   await setDoc(doc(citiesRef, i + ""), {
-    //     data: this.product[i],
-    //     linkfile: this.xxxx[i],
-    //   });
-    // },
+    readimg(i, index, data) {
+      const starsRef = ref(storage, "/image product/" + i);
+      // Get the download URL
+      getDownloadURL(starsRef)
+        .then((url) => {
+          // this.xxxx.push(url);
+          this.xxxx = url;
+          this.profile(index, url, data);
+          // Insert url into an <img> tag to "download"
+        })
+        .catch((error) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case "storage/object-not-found":
+              // File doesn't exist
+              break;
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              break;
+            // ...
+            case "storage/unknown":
+              // Unknown error occurred, inspect the server response
+              break;
+          }
+        });
+    },
+    async profile(i, linkfile, data) {
+      console.log(i);
+      const citiesRef = collection(db, "product");
+      await setDoc(doc(citiesRef, i + ""), {
+        data: data,
+        linkfile: linkfile,
+      });
+    },
   },
 };
 </script>
