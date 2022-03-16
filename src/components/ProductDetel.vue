@@ -73,12 +73,20 @@
               class="title-font font-medium text-2xl dark:text-white text-gray-900"
               >$ {{ sss.data.data.price }}</span
             >
-            <button
-              class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-              @click="adddatatocart"
-            >
-              Add Cart
-            </button>
+            <div class="flex ml-auto">
+              <button
+                class="text-white mx-3 bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                @click="backproduct"
+              >
+                Back to Product
+              </button>
+              <button
+                class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                @click="adddatatocart"
+              >
+                Add Cart
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -173,8 +181,6 @@
     </TransitionRoot>
   </div>
   <!-- {{ datacart.Product[0].idproduct }} -->
-  {{ datacart }}
-  <div @click="newprofile">asdsad</div>
 </template>
 
 <script>
@@ -242,6 +248,10 @@ export default {
     },
     loginzaza() {
       this.$router.replace("/login");
+    },
+    backproduct() {
+      this.$router.replace("/product");
+      this.$emit("rtb", true);
     },
     async readData() {
       const user = auth.currentUser;

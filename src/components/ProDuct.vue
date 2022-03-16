@@ -76,7 +76,12 @@
       </div>
     </div>
   </div>
-  <router-view :key="$route.path" :sss="dataprom" v-else></router-view>
+  <router-view
+    :key="$route.path"
+    @rtb="getButton"
+    :sss="dataprom"
+    v-else
+  ></router-view>
 </template>
 
 <script>
@@ -111,6 +116,9 @@ export default {
       await onSnapshot(doc(db, "product", i + ""), (doc) => {
         console.log(doc.data());
       });
+    },
+    getButton(i) {
+      this.showproduct = i;
     },
     async readData2() {
       console.log("start");
