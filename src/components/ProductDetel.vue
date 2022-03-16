@@ -75,7 +75,7 @@
             >
             <button
               class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-              @click="newprofile"
+              @click="adddatatocart"
             >
               Add Cart
             </button>
@@ -178,7 +178,7 @@
 </template>
 
 <script>
-import { collection, addDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { auth, db } from "../plugin/index.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -235,13 +235,7 @@ export default {
     async adddatatocart() {
       this.chackLogin();
       if (this.login) {
-        const user = auth.currentUser;
-        // Add a new document with a generated id.
-        const docRef = await addDoc(collection(db, "cart"), {
-          idpeople: user.uid,
-          country: "Japan",
-        });
-        console.log("Document written with ID: ", docRef.id);
+        this.newprofile();
       } else {
         this.logoutvar = false;
       }
