@@ -1,5 +1,6 @@
 <template>
   <div class="py-6"></div>
+  <div class="h-screen bg-orange-600" v-show="!show"></div>
   <div class="bg-gray-50 dark:bg-gray-700 dark:text-white text-black">
     <h1 class="text-center pt-16 text-5xl">Product</h1>
     <div
@@ -33,66 +34,18 @@
           </p>
         </div>
         <div class="px-6 pt-4 pb-2 text-center mt-auto">
-          <a class="no-underline hover:underline text-black" href="#">
-            <p class="ml-2 text-sm dark:text-white">Author Name</p>
-          </a>
+          <router-link to="/productdetel/1">
+            <button
+              :to="'/productdetel/' + 1"
+              class="no-underline hover:underline text-black"
+            >
+              <p class="ml-2 text-sm dark:text-white">Author Name</p>
+            </button>
+          </router-link>
         </div>
       </div>
     </div>
-    <!-- <div class="container pb-3 mx-auto px-4 md:px-12">
-      <div><h1 class="text-center text-3xl dark:text-white">Product</h1></div>
-      <div class="flex flex-wrap -mx-1 lg:-mx-4"> -->
-    <!-- Column -->
-    <!-- <div
-          v-for="(item, index) in profiledata"
-          :key="index"
-          class="flex flex-col my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3"
-        > -->
-    <!-- Article -->
-    <!-- <article
-            class="overflow-hidden flex-1 rounded-lg shadow-lg bg-white dark:text-white dark:bg-gray-800"
-          >
-            <a href="#">
-              <img
-                alt="Placeholder"
-                class="block h-auto w-full object-cover max-h-64 min-w-fit"
-                :src="item.data.linkfile"
-              />
-            </a>
-
-            <div class="">
-              <header
-                class="flex items-center justify-between leading-tight p-2 md:p-4"
-              >
-                <h1 class="text-lg">
-                  <a
-                    class="no-underline hover:underline dark:text-white text-black"
-                    href="#"
-                  >
-                    {{ item.data.data.title }}
-                  </a>
-                </h1>
-                <p class="text-grey-darker text-sm">
-                  {{ item.data.data.price }} $
-                </p>
-              </header>
-              <div class="p-2 md:p-4">
-                <h1>{{ item.data.data.description }}</h1>
-              </div>
-            </div>
-
-            <footer class="p-2 md:p-4">
-              <a class="no-underline hover:underline text-black" href="#">
-                <p class="ml-2 text-sm dark:text-white">Author Name</p>
-              </a>
-            </footer>
-          </article> -->
-
-    <!-- END Article -->
-    <!-- </div>
-      </div>
-    </div> -->
-    <div></div>
+    <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
@@ -105,13 +58,13 @@ import { onSnapshot, getDocs } from "firebase/firestore";
 export default {
   async beforeCreate() {
     // this.readimg();
-
+    console.log(1);
     const querySnapshot = await getDocs(collection(db, "product"));
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.id, " => ", doc.data());
       this.profiledata.push({ id: doc.id, data: doc.data() });
+      // console.log(2);
     });
+    console.log(3);
     this.show = true;
   },
   data() {
