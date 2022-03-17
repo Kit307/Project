@@ -69,7 +69,12 @@
               class="no-underline hover:underline text-black"
               @click="(showproduct = false), adddata(index)"
             >
-              <p class="ml-2 text-sm dark:text-white">{{ item.id }}</p>
+              <button
+                type="button"
+                class="py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                See more
+              </button>
             </button>
           </router-link>
         </div>

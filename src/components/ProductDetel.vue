@@ -271,7 +271,7 @@ export default {
         UID: user.uid,
         Product: this.datacart.Product,
       });
-
+      this.backproduct();
       this.readData();
     },
     async newprofile() {
@@ -291,6 +291,7 @@ export default {
         });
         this.cardnew = true;
         this.readData();
+        this.backproduct();
       } else {
         this.checkproduct();
       }

@@ -203,6 +203,11 @@ export default {
         Email: user.email,
         totalMoney: 0,
       });
+      const citiesRef1 = collection(db, "cart");
+      setDoc(doc(citiesRef1, user.uid), {
+        UID: user.uid,
+        Product: [],
+      });
       this.logout();
     },
     logout() {
