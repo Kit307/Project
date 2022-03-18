@@ -27,7 +27,6 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../plugin/index";
 export default {
-  
   methods: {
     logout() {
       //   const auth = getAuth();

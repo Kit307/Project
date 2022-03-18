@@ -27,7 +27,7 @@
   </div>
 
   <div
-    class="bg-gray-50 dark:bg-gray-700 dark:text-white text-black"
+    class="bg-gray-50 h-screen dark:bg-gray-700 dark:text-white text-black"
     v-if="showproduct"
   >
     <div class="py-6"></div>

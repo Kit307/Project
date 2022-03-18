@@ -208,6 +208,11 @@ export default {
         UID: user.uid,
         Product: [],
       });
+      const citiesRef2 = collection(db, "bag");
+      await setDoc(doc(citiesRef2, user.uid), {
+        UID: user.uid,
+        Product: [],
+      });
       this.logout();
     },
     logout() {

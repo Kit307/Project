@@ -44,6 +44,8 @@
                       <div class="flex items-center">
                         <input
                           id="checkbox-all"
+                          v-model="varbox"
+                          @click="addcheckboxall(varbox)"
                           type="checkbox"
                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
@@ -83,6 +85,8 @@
                     >
                       <input
                         id="checkbox-all"
+                        v-model="checkbox[index].checkbox"
+                        @click="varbox = false"
                         type="checkbox"
                         class="w-5 h-5 mx-5 md:mx-0 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-800 dark:border-gray-600"
                       />
@@ -134,7 +138,7 @@
                       <p
                         class="text-gray-900 whitespace-no-wrap dark:text-white"
                       >
-                        {{ item.data.price * item.count }} $
+                        {{ (item.data.price * item.count).toFixed(2) }} $
                       </p>
                     </td>
                     <td
@@ -159,20 +163,20 @@
               <div
                 class="px-5 py-4 bg-white dark:border-gray-900 dark:bg-gray-700 border-t flex flex-col xs:flex-row items-center xs:justify-between"
               >
-                <span class="text-xs xs:text-sm text-gray-900 dark:text-white">
-                  Showing 1 to 4 of 50 Entries
-                </span>
                 <div class="inline-flex mt-2 xs:mt-0">
                   <button
-                    class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l"
-                  >
-                    Prev
-                  </button>
-                  &nbsp; &nbsp;
-                  <button
                     class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r"
+                    v-if="this.producttable.length != 0"
+                    @click="summoney(), (open = true)"
                   >
-                    Next
+                    BUY
+                  </button>
+                  <button
+                    class="text-sm text-indigo-50 transition duration-150 bg-indigo-600 font-semibold py-2 px-4 rounded-r"
+                    v-else
+                    disabled
+                  >
+                    BUY
                   </button>
                 </div>
               </div>
@@ -182,17 +186,100 @@
       </div>
     </div>
   </div>
+  <div>
+    <TransitionRoot as="template" :show="open">
+      <Dialog
+        as="div"
+        class="fixed z-10 inset-0 overflow-y-auto"
+        @close="open = false"
+      >
+        <div
+          class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+        >
+          <TransitionChild
+            as="template"
+            enter="ease-out duration-300"
+            enter-from="opacity-0"
+            enter-to="opacity-100"
+            leave="ease-in duration-200"
+            leave-from="opacity-100"
+            leave-to="opacity-0"
+          >
+            <DialogOverlay
+              class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            />
+          </TransitionChild>
 
-  <!-- {{ profiledata[0].data.data }} -->
-  <!-- {{ profiledata[0].id }}
-   -->
-
+          <!-- This element is to trick the browser into centering the modal contents. -->
+          <span
+            class="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+            >&#8203;</span
+          >
+          <TransitionChild
+            as="template"
+            enter="ease-out duration-300"
+            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enter-to="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-200"
+            leave-from="opacity-100 translate-y-0 sm:scale-100"
+            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          >
+            <div
+              class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+            >
+              <div
+                class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 dark:bg-gray-700"
+              >
+                <div class="sm:flex sm:items-start">
+                  <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <DialogTitle
+                      as="h3"
+                      class="text-lg leading-6 font-medium text-gray-900 dark:text-white"
+                    >
+                    </DialogTitle>
+                    <div class="mt-2">
+                      <h1 class="text-2xl text-gray-900 dark:text-white">
+                        Confirm Buy
+                      </h1>
+                      <h1 class="text-2xl text-gray-900 dark:text-white">
+                        Totle : {{ totalmoney.toFixed(2) }} $
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse dark:bg-gray-700"
+              >
+                <button
+                  type="submit"
+                  @click="(open = false), buy()"
+                  class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  Buy
+                </button>
+                <button
+                  type="button"
+                  @click="open = false"
+                  class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  ref="cancelButtonRef"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </TransitionChild>
+        </div>
+      </Dialog>
+    </TransitionRoot>
+  </div>
   <div>
     <TransitionRoot as="template" :show="logoutvar">
       <Dialog
         as="div"
         class="fixed z-10 inset-0 overflow-y-auto"
-        @close="open = false"
+        @close="logoutvar = false"
       >
         <div
           class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
@@ -245,7 +332,14 @@
                           <h1 class="">
                             {{ producttable[cartindex].data.title }}
                           </h1>
-                          <div class="flex md:px-36 md:pt-14 sm:pt-3 sm:px-5">
+                          <h1
+                            class="text-red-600 mt-2 font-bold md:pr-10"
+                            v-if="cart.Product[cartid].total == 0"
+                          >
+                            The product will be automatically deleted when the
+                            item equals 0.
+                          </h1>
+                          <div class="flex md:px-36 md:pt-14 sm:pt-5 sm:px-5">
                             <button
                               type="button"
                               @click="
@@ -355,7 +449,12 @@ export default {
     });
     this.addProducttoTable();
     this.show = true;
+    const user = auth.currentUser;
+    onSnapshot(doc(db, "bag", user.uid), (doc) => {
+      this.bag = doc.data();
+    });
   },
+
   data() {
     return {
       cart: [],
@@ -366,6 +465,12 @@ export default {
       cartid: "",
       cartindex: "",
       count: 0,
+      checkbox: [],
+      varbox: false,
+      totalmoney: 0,
+      open: false,
+      totalBuy: [],
+      bag: [],
     };
   },
   methods: {
@@ -384,6 +489,10 @@ export default {
               img: data.data.linkfile,
               count: this.cart.Product[index].total,
               index: index,
+            });
+            this.checkbox.push({
+              idproduct: this.cart.Product[index].idproduct,
+              checkbox: false,
             });
             break;
           }
@@ -404,6 +513,76 @@ export default {
       });
       this.producttable = [];
       this.addProducttoTable();
+    },
+    addcheckboxall() {
+      this.checkbox.forEach((element) => {
+        element.checkbox = !this.varbox;
+      });
+    },
+    summoney() {
+      if (this.producttable.length != 0) {
+        this.totalmoney = 0;
+        this.totalBuy = [];
+        for (let index = 0; index < this.checkbox.length; index++) {
+          if (this.checkbox[index].checkbox) {
+            this.totalmoney +=
+              this.producttable[index].data.price *
+              this.producttable[index].count;
+            this.totalBuy.push({
+              idproduct:
+                this.cart.Product[this.producttable[index].index].idproduct,
+              total: this.producttable[index].count,
+            });
+          }
+        }
+      }
+    },
+    async buy() {
+      if (this.totalBuy.length != 0) {
+        // this.show = false;
+        if (this.bag.Product.length != 0) {
+          for (let index = 0; index < this.totalBuy.length; index++) {
+            let x = true;
+            for (let j = 0; j < this.bag.Product.length; j++) {
+              if (
+                this.totalBuy[index].idproduct == this.bag.Product[j].idproduct
+              ) {
+                this.bag.Product[j].total += this.totalBuy[index].total;
+                x = false;
+              }
+            }
+
+            if (x) {
+              console.log(this.bag.Product.push(this.totalBuy[index]));
+            }
+          }
+        }
+        const user = auth.currentUser;
+
+        for (let index = 0; index < this.cart.Product.length; index++) {
+          for (let i = 0; i < this.totalBuy.length; i++) {
+            if (
+              this.totalBuy[i].idproduct == this.cart.Product[index].idproduct
+            ) {
+              this.cart.Product.splice(index, 1);
+            }
+          }
+        }
+        const citiesRef1 = collection(db, "cart");
+        await setDoc(doc(citiesRef1, user.uid), {
+          UID: user.uid,
+          Product: this.cart.Product,
+        });
+        this.producttable = [];
+        this.addProducttoTable();
+        const citiesRef = collection(db, "bag");
+        await setDoc(doc(citiesRef, user.uid), {
+          UID: user.uid,
+          Product: this.bag.Product,
+        });
+
+        this.show = true;
+      }
     },
   },
 };
