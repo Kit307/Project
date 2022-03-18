@@ -420,6 +420,8 @@
       </Dialog>
     </TransitionRoot>
   </div>
+  {{ totalBuy }}
+  {{ bag }}
 </template>
 
 <script>
@@ -442,7 +444,7 @@ export default {
     TransitionRoot,
   },
   async mounted() {
-    await this.readdataincart();
+    this.readdataincart();
     const querySnapshot = await getDocs(collection(db, "product"));
     querySnapshot.forEach((doc) => {
       this.profiledata.push({ id: doc.id, data: doc.data() });
@@ -539,7 +541,7 @@ export default {
     },
     async buy() {
       if (this.totalBuy.length != 0) {
-        // this.show = false;
+        this.show = false;
         if (this.bag.Product.length != 0) {
           for (let index = 0; index < this.totalBuy.length; index++) {
             let x = true;
@@ -553,9 +555,12 @@ export default {
             }
 
             if (x) {
-              console.log(this.bag.Product.push(this.totalBuy[index]));
+              console.log(1);
+              this.bag.Product.push(this.totalBuy[index]);
             }
           }
+        } else {
+          this.bag.Product = this.totalBuy;
         }
         const user = auth.currentUser;
 
