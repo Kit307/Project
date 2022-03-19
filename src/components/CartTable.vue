@@ -41,15 +41,7 @@
                     <th
                       class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                     >
-                      <div class="flex items-center">
-                        <input
-                          id="checkbox-all"
-                          v-model="varbox"
-                          @click="addcheckboxall(varbox)"
-                          type="checkbox"
-                          class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                      </div>
+                      <div class="flex items-center">#</div>
                     </th>
                     <th
                       class="px py-3 border-b-2 border-gray-200 dark:border-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
@@ -64,12 +56,12 @@
                     <th
                       class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                     >
-                      Totle
+                      Total
                     </th>
                     <th
                       class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                     >
-                      Totle Price
+                      Total Price
                     </th>
                     <th
                       class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
@@ -420,8 +412,6 @@
       </Dialog>
     </TransitionRoot>
   </div>
-  {{ totalBuy }}
-  {{ bag }}
 </template>
 
 <script>
@@ -555,7 +545,6 @@ export default {
             }
 
             if (x) {
-              console.log(1);
               this.bag.Product.push(this.totalBuy[index]);
             }
           }
@@ -587,6 +576,7 @@ export default {
         });
 
         this.show = true;
+        this.varbox = false;
       }
     },
   },

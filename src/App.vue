@@ -65,14 +65,6 @@ import { RouterLink, RouterView } from "vue-router";
                   ></RouterLink
                 >
               </li>
-              <li>
-                <RouterLink to="/about">
-                  <a
-                    class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                    >About</a
-                  ></RouterLink
-                >
-              </li>
 
               <li>
                 <RouterLink to="/product"
@@ -294,9 +286,9 @@ export default {
           console.log(error);
         });
     },
-    async readData() {
+    readData() {
       const user = auth.currentUser;
-      await onSnapshot(doc(db, "cities", user.uid), (doc) => {
+      onSnapshot(doc(db, "cities", user.uid), (doc) => {
         // console.log(doc.data());
         this.profiledata = doc.data();
       });

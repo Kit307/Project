@@ -83,7 +83,7 @@ export default {
           // console.log(user);
           this.xx = user;
           // loginผ่าน แล้วให้เปลี่ยนไปหน้า about
-          this.$router.replace("/about");
+          this.$router.replace("/profile");
           //   this.$router.replace("/about");
         })
         .catch((error) => {

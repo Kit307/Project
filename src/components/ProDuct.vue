@@ -34,7 +34,7 @@
 
     <h1 class="text-center pt-16 text-5xl">Product</h1>
     <div
-      class="md:px-16 px-5 grid grid-cols-1 py-14 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5"
+      class="md:px-16 px-5 grid grid-cols-1 py-14 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 dark:bg-gray-700"
     >
       <div
         v-for="(item, index) in profiledata"
@@ -50,12 +50,9 @@
             class="flex items-center justify-between leading-tight p-2 md:p-4"
           >
             <h1 class="text-lg">
-              <a
-                class="no-underline hover:underline dark:text-white text-black"
-                href="#"
-              >
+              <h1 class="dark:text-white text-black">
                 {{ item.data.data.title }}
-              </a>
+              </h1>
             </h1>
             <p class="text-grey-darker text-sm">{{ item.data.data.price }} $</p>
           </header>
@@ -117,8 +114,8 @@ export default {
     };
   },
   methods: {
-    async readData(i) {
-      await onSnapshot(doc(db, "product", i + ""), (doc) => {
+    readData(i) {
+      onSnapshot(doc(db, "product", i + ""), (doc) => {
         console.log(doc.data());
       });
     },
