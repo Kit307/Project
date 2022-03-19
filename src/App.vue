@@ -15,7 +15,7 @@ import { RouterLink, RouterView } from "vue-router";
           <a href="#" class="flex items-center">
             <span
               class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-              >Flowbite
+              >Only Shop
             </span>
           </a>
           <button

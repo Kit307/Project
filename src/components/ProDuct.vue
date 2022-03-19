@@ -32,7 +32,7 @@
   >
     <div class="py-6"></div>
 
-    <h1 class="text-center pt-16 text-5xl">Product</h1>
+    <h1 class="text-left pl-10 pt-16 text-5xl font-mono font-bold">Product</h1>
     <div
       class="md:px-16 px-5 grid grid-cols-1 py-14 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5 dark:bg-gray-700"
     >

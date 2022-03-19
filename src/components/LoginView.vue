@@ -7,7 +7,7 @@
     <div class="mt-2 items-center z-10">
       <form
         @submit.prevent="login"
-        class="p-14 bg-white max-w-sm px-20 mx-auto rounded-xl shadow-xl dark:bg-gray-800 dark:rounded-xl dark:shadow-xl overflow-hidden space-y-10"
+        class="md:py-10 py-10 bg-white max-w-sm px-10 md:px-20 mx-auto rounded-xl shadow-xl dark:bg-gray-800 dark:rounded-xl dark:shadow-xl overflow-hidden space-y-10"
       >
         <h5 class="text-xl font-medium text-gray-900 dark:text-white">
           Sign in to our platform
@@ -42,7 +42,11 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             required=""
           />
+          <p v-show="errorlogin" class="text-red-600 font-bold mt-2">
+            {{ errormessage }}
+          </p>
         </div>
+
         <button
           type="submit"
           class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -71,6 +75,8 @@ export default {
       email: "",
       password: "",
       xx: "",
+      errormessage: "",
+      errorlogin: false,
     };
   },
   methods: {
@@ -83,13 +89,22 @@ export default {
           // console.log(user);
           this.xx = user;
           // loginผ่าน แล้วให้เปลี่ยนไปหน้า about
+          this.errorlogin = false;
           this.$router.replace("/profile");
           //   this.$router.replace("/about");
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("Error = " + errorCode + " : " + errorMessage);
+          this.errorlogin = true;
+          if (errorCode == "auth/user-not-found") {
+            this.errormessage = "Couldn't find this e-mail";
+          }
+          if (errorCode == "auth/wrong-password") {
+            this.errormessage = "Wrong password !!";
+          }
+          if (errorCode == "auth/too-many-requests") {
+            this.errormessage = "Please wait to log in again.";
+          }
         });
     },
   },

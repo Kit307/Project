@@ -1,8 +1,8 @@
 <template>
   <div class="bg-gray-50 dark:bg-gray-700">
-    <div class="h-screen bg-gray-50 dark:bg-gray-700 py-24">
+    <div class="h-screen bg-gray-50 dark:bg-gray-700 py-24 ">
       <!-- Container -->
-      <div class="container mx-auto">
+      <div class="container mx-auto bg-gray-50 dark:bg-gray-700">
         <div class="flex justify-center px-6">
           <!-- Row -->
           <div

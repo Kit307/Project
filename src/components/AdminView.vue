@@ -157,6 +157,13 @@
                     >
                       Next
                     </button>
+                    <router-link to="/addadmin">
+                      <button
+                        class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+                      >
+                        Add Admin
+                      </button></router-link
+                    >
                   </div>
                 </div>
               </div>
@@ -263,6 +270,7 @@
                             </p>
                             <input
                               class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                               required
                               v-model="price"
                             />
@@ -323,14 +331,13 @@
       </Dialog>
     </TransitionRoot>
   </div>
-  {{ profiledata[productindex] }}
 </template>
 
 <script>
 import { collection, getDocs } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
-
-import { db } from "../plugin/index";
+import { onSnapshot } from "firebase/firestore";
+import { auth, db } from "../plugin/index.js";
 import {
   Dialog,
   DialogOverlay,
@@ -347,15 +354,24 @@ export default {
     TransitionRoot,
   },
   async beforeCreate() {
+    const user = auth.currentUser;
+    onSnapshot(doc(db, "cities", user.uid), (doc) => {
+      this.admin = doc.data();
+    });
     const querySnapshot = await getDocs(collection(db, "product"));
     querySnapshot.forEach((doc) => {
       this.profiledata.push({ id: doc.id, data: doc.data() });
     });
+
+    if (!this.admin.Admin) {
+      this.$router.replace("/");
+    }
     this.show = true;
   },
   data() {
     return {
       profiledata: [],
+      admin: [],
       show: false,
       x: 1,
       logoutvar: false,
