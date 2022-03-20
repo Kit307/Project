@@ -336,8 +336,7 @@
 <script>
 import { collection, getDocs } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
-import { onSnapshot } from "firebase/firestore";
-import { auth, db } from "../plugin/index.js";
+import { db } from "../plugin/index.js";
 import {
   Dialog,
   DialogOverlay,
@@ -353,19 +352,12 @@ export default {
     TransitionChild,
     TransitionRoot,
   },
-  async beforeCreate() {
-    const user = auth.currentUser;
-    onSnapshot(doc(db, "cities", user.uid), (doc) => {
-      this.admin = doc.data();
-    });
+  async mounted() {
+    
     const querySnapshot = await getDocs(collection(db, "product"));
     querySnapshot.forEach((doc) => {
       this.profiledata.push({ id: doc.id, data: doc.data() });
     });
-
-    if (!this.admin.Admin) {
-      this.$router.replace("/");
-    }
     this.show = true;
   },
   data() {
@@ -400,13 +392,9 @@ export default {
         linkfile: this.profiledata[this.productindex].data.linkfile,
         stock: this.profiledata[this.productindex].data.stock,
       });
-      this.profiledata = [];
-      const querySnapshot = await getDocs(collection(db, "product"));
-      querySnapshot.forEach((doc) => {
-        this.profiledata.push({ id: doc.id, data: doc.data() });
-      });
       this.show = true;
       this.show = true;
+      this.$router.replace("/");
       this.logoutvar = false;
     },
   },

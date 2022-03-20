@@ -4,7 +4,7 @@
       class="container px-5 py-20 mx-auto bg-gray-200 dark:bg-gray-700 dark:text-white"
       style="cursor: auto"
     >
-      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap dark:bg-gray-700">
         <img
           alt="ecommerce"
           class="lg:w-1/2 w-full block md:h-auto h-72 object-cover rounded-xl object-center"
