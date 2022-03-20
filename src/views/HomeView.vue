@@ -89,8 +89,7 @@
               <p
                 class="text-2xl md:mt-0 mt-4 font-semibold leading-6 dark:text-white text-gray-800"
               >
-                <span
-                  class="font-normal text-base text-red-600 dark:text-white font-bold"
+                <span class="text-base text-red-600 dark:text-white font-bold"
                   >/☆*: .｡. o(≧▽≦)o .｡.:*☆</span
                 >
               </p>
