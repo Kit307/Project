@@ -42,7 +42,7 @@
         </div>
       </div>
       <div
-        class="xl:w-1/2 lg:w-7/12 relative w-full lg:mt-0 mt-12 md:px-8"
+        class="xl:w-1/2 lg:w-7/12 relative w-full lg:mt-0 mt-12 md:px-8 z-0"
         role="list"
       >
         <img

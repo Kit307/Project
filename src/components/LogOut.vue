@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-700 py-12 px-4 sm:px-6 lg:px-8"
+    class="relative min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-700 py-12 px-4 sm:px-6 lg:px-8 z-50"
   >
     <!-- bg-yellow-100 -->
     <!-- <div class="absolute bg-black opacity-60 inset-0 z-0"></div> -->
